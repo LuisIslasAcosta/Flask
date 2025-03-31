@@ -14,7 +14,7 @@ load_dotenv()
 app = Flask(__name__)
 
 # Configuración de CORS
-CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
+CORS(app, resources={r"/*": {"origins": "https://main.d3gd2kcl7rhrjn.amplifyapp.com/"}})
 
 # Configuración de JWT
 app.config['JWT_SECRET_KEY'] = 'Prueba dia 08-02-2025'
