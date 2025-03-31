@@ -1,0 +1,12 @@
+usuarios:
+  - id: 1
+    nombre: "Luis Islas"
+    correo: "luis@gmail.com"
+  
+  - id: 2
+    nombre: "Sofia Sanchez"
+    correo: "sofi@gmail.com"
+
+  - id: 3
+    nombre: "Carlos Villavicencio"
+    correo: "carlos@gmail.com"
