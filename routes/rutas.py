@@ -4,9 +4,9 @@ from controllers.controllers import edit_usuario, get_usuario_por_id, delete_bas
 from models.models import Usuario
 
 # Blueprints
-usuario_bp = Blueprint('usuarios', __name__)
-roles_bp = Blueprint('roles', __name__)
-baston_bp = Blueprint('bastones', __name__)
+usuario_bp = Blueprint('usuarios', _name_)
+roles_bp = Blueprint('roles', _name_)
+baston_bp = Blueprint('bastones', _name_)
 
 # ------------------------------------- Roles -------------------------------------- #
 
@@ -157,11 +157,10 @@ def get_all_bastones_route():
 def eliminar_baston(baston_id):
     return delete_baston(baston_id)
 
-
 #--------------------------------- Distancia --------------------------------#
 from flask import Blueprint, request, jsonify
 
-distancia_bp = Blueprint("distancia", __name__)
+distancia_bp = Blueprint("distancia", _name_)
 
 datos_sensores = {"distancia": 0, "ir1": 0, "ir2": 0}
 
