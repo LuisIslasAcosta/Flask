@@ -46,4 +46,4 @@ app.register_blueprint(distancia_bp, url_prefix="/distancia")
 
 # Ejecutar la aplicación
 if _name_ == "_main_":
-    app.run(host="0.0.0.0", port=5000, debug=True)# Escuchar en todas las interfaces
+    app.run(host="0.0.0.0", port=8000, debug=True)# Escuchar en todas las interfaces
