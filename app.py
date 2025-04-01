@@ -2,6 +2,7 @@
 from flask import Flask
 from config import db, migrate
 from dotenv import load_dotenv
+from flask import Flask, render_template
 import os
 from flask import Blueprint
 from flask_jwt_extended import JWTManager
@@ -35,9 +36,9 @@ migrate.init_app(app, db)
 jwt = JWTManager(app)
 
 # Ruta de prueba
-@app.route('/')
+@app.route("/")
 def home():
-    return '¡Hola, mundo!'
+    return render_template("index.html")
 
 # Importar los Blueprints de usuarios y roles
 from routes.rutas import usuario_bp, roles_bp, baston_bp, distancia_bp

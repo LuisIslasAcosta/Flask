@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            color: white;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: flex-end;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        .btn {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            margin-left: 10px;
+            font-size: 1em;
+            color: white;
+            background: #ff6b6b;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            text-decoration: none;
+        }
+        .btn i {
+            margin-right: 8px;
+        }
+        .btn:hover {
+            background: #ff4f4f;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 1.2em;
+        }
+        .image-container {
+            margin-top: 20px;
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="top-bar">
+        <a href="https://main.d3gd2kcl7rhrjn.amplifyapp.com/login" class="btn"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
+        <a href="https://main.d3gd2kcl7rhrjn.amplifyapp.com/" class="btn"><i class="fas fa-user-plus"></i> Registrarse</a>
+    </div>
+    
+    <div class="container">
+        <h1>Bienvenido a Nuestro Proyecto</h1>
+        <p>Este es un sistema basado en Flask con JWT y CORS configurado.</p>
+        
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='imagen.png') }}" alt="Imagen del Proyecto">
+        </div>
+    </div>
+</body>
+</html>
