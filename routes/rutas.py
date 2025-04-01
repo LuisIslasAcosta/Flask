@@ -156,3 +156,38 @@ def get_all_bastones_route():
 @baston_bp.route('/<int:baston_id>', methods=['DELETE'])
 def eliminar_baston(baston_id):
     return delete_baston(baston_id)
+
+
+
+#--------------------------------- Distancia --------------------------------#
+
+from flask import Blueprint, request, jsonify
+from flask_jwt_extended import jwt_required
+
+# Crear Blueprint
+distancia_bp = Blueprint("distancia", __name__)
+
+# Variable global para almacenar la última distancia recibida
+distancia_ultima = 0
+
+# Ruta para recibir la distancia del ESP32 (POST)
+@distancia_bp.route("/", methods=["POST"], strict_slashes=False)
+def recibir_distancia():
+    global distancia_ultima
+    data = request.get_json()  # Obtener datos en formato JSON
+
+    if data and "distancia" in data:
+        distancia_ultima = data["distancia"]  # Actualizar la última distancia
+        print(f"Distancia recibida: {distancia_ultima} cm")
+        return jsonify({
+            "mensaje": "Datos recibidos correctamente",
+            "distancia": distancia_ultima
+        }), 200
+    else:
+        return jsonify({"mensaje": "No se recibió la distancia correctamente"}), 400
+
+# Ruta para obtener la última distancia medida (GET)
+@distancia_bp.route("/", methods=["GET"], strict_slashes=False)
+def obtener_distancia():
+    return jsonify({"distancia": distancia_ultima}), 200
+

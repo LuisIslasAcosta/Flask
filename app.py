@@ -17,7 +17,8 @@ app = Flask(__name__)
 CORS(app, resources={
     r"/usuario/*": {"origins": "https://main.d3gd2kcl7rhrjn.amplifyapp.com"},
     r"/roles/*": {"origins": "https://main.d3gd2kcl7rhrjn.amplifyapp.com"},
-    r"/bastones/*": {"origins": "https://main.d3gd2kcl7rhrjn.amplifyapp.com"}
+    r"/bastones/*": {"origins": "https://main.d3gd2kcl7rhrjn.amplifyapp.com"},
+    r"/distancia/*": {"origins": "https://main.d3gd2kcl7rhrjn.amplifyapp.com"}
 })
 
 
@@ -39,12 +40,13 @@ def home():
     return '¡Hola, mundo!'
 
 # Importar los Blueprints de usuarios y roles
-from routes.rutas import usuario_bp, roles_bp, baston_bp
+from routes.rutas import usuario_bp, roles_bp, baston_bp, distancia_bp
 
 # Registrar los Blueprints
 app.register_blueprint(usuario_bp, url_prefix='/usuario')
 app.register_blueprint(roles_bp, url_prefix='/roles')
 app.register_blueprint(baston_bp, url_prefix='/bastones')
+app.register_blueprint(distancia_bp, url_prefix='/distancia')
 
 # Correr la aplicación
 if __name__ == '__main__':
