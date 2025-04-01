@@ -158,36 +158,28 @@ def eliminar_baston(baston_id):
     return delete_baston(baston_id)
 
 
-
 #--------------------------------- Distancia --------------------------------#
-
 from flask import Blueprint, request, jsonify
-from flask_jwt_extended import jwt_required
 
-# Crear Blueprint
 distancia_bp = Blueprint("distancia", __name__)
 
-# Variable global para almacenar la última distancia recibida
-distancia_ultima = 0
+datos_sensores = {"distancia": 0, "ir1": 0, "ir2": 0}
 
-# Ruta para recibir la distancia del ESP32 (POST)
 @distancia_bp.route("/", methods=["POST"], strict_slashes=False)
-def recibir_distancia():
-    global distancia_ultima
-    data = request.get_json()  # Obtener datos en formato JSON
+def recibir_datos():
+    global datos_sensores
+    data = request.get_json()
 
-    if data and "distancia" in data:
-        distancia_ultima = data["distancia"]  # Actualizar la última distancia
-        print(f"Distancia recibida: {distancia_ultima} cm")
-        return jsonify({
-            "mensaje": "Datos recibidos correctamente",
-            "distancia": distancia_ultima
-        }), 200
+    if data and "distancia" in data and "ir1" in data and "ir2" in data:
+        datos_sensores["distancia"] = data["distancia"]
+        datos_sensores["ir1"] = data["ir1"]
+        datos_sensores["ir2"] = data["ir2"]
+
+        print(f"Datos recibidos -> Distancia: {data['distancia']} cm, IR1: {data['ir1']}, IR2: {data['ir2']}")
+        return jsonify({"mensaje": "Datos recibidos correctamente", "datos": datos_sensores}), 200
     else:
-        return jsonify({"mensaje": "No se recibió la distancia correctamente"}), 400
+        return jsonify({"mensaje": "Error en los datos recibidos"}), 400
 
-# Ruta para obtener la última distancia medida (GET)
 @distancia_bp.route("/", methods=["GET"], strict_slashes=False)
-def obtener_distancia():
-    return jsonify({"distancia": distancia_ultima}), 200
-
+def obtener_datos():
+    return jsonify(datos_sensores), 200
