@@ -163,6 +163,17 @@ def asignar_baston_usuario(usuario_id, baston_id):
     except Exception as e:
         print(f"ERROR {e}")
         return jsonify({'msg': 'Error al asignar el bastón al usuario'}), 500
+    
+# Obtener todas las asignaciones de bastones a usuarios
+def get_all_bastones_usuarios():
+    try:
+        asignaciones = BastonesUsuario.query.all()
+        resultado = [asignacion.to_dict() for asignacion in asignaciones]
+        return jsonify(resultado), 200
+    except Exception as e:
+        print(f"ERROR {e}")
+        return jsonify({'msg': 'Error al obtener las asignaciones'}), 500
+
 
 # Obtener todas las ubicaciones
 def get_all_ubicaciones():

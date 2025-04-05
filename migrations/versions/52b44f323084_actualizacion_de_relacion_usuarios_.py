@@ -1,8 +1,8 @@
-"""Prueba de Base de datos
+"""actualizacion de relacion usuarios-baston
 
-Revision ID: 5aa678157711
+Revision ID: 52b44f323084
 Revises: 
-Create Date: 2025-03-30 20:53:07.320227
+Create Date: 2025-04-04 22:36:29.544192
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '5aa678157711'
+revision = '52b44f323084'
 down_revision = None
 branch_labels = None
 depends_on = None

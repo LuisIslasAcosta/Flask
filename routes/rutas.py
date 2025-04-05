@@ -1,7 +1,8 @@
 from flask import Blueprint, jsonify, request
 from controllers.controllers import get_all_roles, create_rol, create_usuario, get_all_bastones, create_baston
 from controllers.controllers import edit_usuario, get_usuario_por_id, delete_baston, create_access_token
-from models.models import Usuario
+from controllers.controllers import asignar_baston_usuario, get_all_bastones_usuarios
+from models.models import Usuario, BastonesUsuario, Baston
 
 # Blueprints
 usuario_bp = Blueprint('usuarios', __name__)
@@ -157,6 +158,40 @@ def get_all_bastones_route():
 def eliminar_baston(baston_id):
     return delete_baston(baston_id)
 
+
+# Ruta para asignar un bastón a un usuario
+@baston_bp.route('/asignar_baston', methods=['POST'])
+def asignar_baston():
+    data = request.get_json()
+    usuario_id = data.get('usuario_id')
+    baston_id = data.get('baston_id')
+
+    if not usuario_id or not baston_id:
+        return jsonify({"error": "usuario_id y baston_id son requeridos"}), 400
+
+    # Llamar a la función para asignar el bastón
+    return asignar_baston_usuario(usuario_id, baston_id)
+
+@baston_bp.route('/bastones_usuarios', methods=['GET'])
+def obtener_asignaciones_detallado():
+    try:
+        asignaciones = BastonesUsuario.query.all()
+        resultado = []
+        for asignacion in asignaciones:
+            usuario = Usuario.query.get(asignacion.usuario_id)
+            baston = Baston.query.get(asignacion.baston_id)
+            resultado.append({
+                "id": asignacion.id,
+                "usuario_id": asignacion.usuario_id,
+                "usuario_nombre": usuario.nombre if usuario else "Desconocido",
+                "baston_id": asignacion.baston_id,
+                "baston_nombre": baston.nombre if baston else "Desconocido",
+                "fecha_asignacion": asignacion.fecha_asignacion.isoformat() if asignacion.fecha_asignacion else None
+            })
+        return jsonify(resultado), 200
+    except Exception as e:
+        print(f"ERROR {e}")
+        return jsonify({'msg': 'Error al obtener las asignaciones detalladas'}), 500
 
 #--------------------------------- Distancia --------------------------------#
 from flask import Blueprint, request, jsonify
