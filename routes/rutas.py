@@ -198,22 +198,21 @@ from flask import Blueprint, request, jsonify
 
 distancia_bp = Blueprint("distancia", __name__)
 
-datos_sensores = {"distancia": 0, "ir1": 0, "ir2": 0}
+# Diccionario para almacenar solo la distancia
+datos_sensores = {"distancia": 0}
 
 @distancia_bp.route("/", methods=["POST"], strict_slashes=False)
 def recibir_datos():
     global datos_sensores
     data = request.get_json()
 
-    if data and "distancia" in data and "ir1" in data and "ir2" in data:
+    if data and "distancia" in data:  # Validación para asegurar que la distancia esté presente
         datos_sensores["distancia"] = data["distancia"]
-        datos_sensores["ir1"] = data["ir1"]
-        datos_sensores["ir2"] = data["ir2"]
 
-        print(f"Datos recibidos -> Distancia: {data['distancia']} cm, IR1: {data['ir1']}, IR2: {data['ir2']}")
+        print(f"Datos recibidos -> Distancia: {data['distancia']} cm")
         return jsonify({"mensaje": "Datos recibidos correctamente", "datos": datos_sensores}), 200
     else:
-        return jsonify({"mensaje": "Error en los datos recibidos"}), 400
+        return jsonify({"mensaje": "Error en los datos recibidos. Se necesita la distancia como mínimo."}), 400
 
 @distancia_bp.route("/", methods=["GET"], strict_slashes=False)
 def obtener_datos():
